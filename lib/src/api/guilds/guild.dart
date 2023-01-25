@@ -9,6 +9,7 @@ import 'package:mineral/framework.dart';
 import 'package:mineral/src/api/managers/channel_manager.dart';
 import 'package:mineral/src/api/managers/command_manager.dart';
 import 'package:mineral/src/api/managers/emoji_manager.dart';
+import 'package:mineral/src/api/managers/guild_invites_manager.dart';
 import 'package:mineral/src/api/managers/guild_role_manager.dart';
 import 'package:mineral/src/api/managers/guild_scheduled_event_manager.dart';
 import 'package:mineral/src/api/managers/guild_webhook_manager.dart';
@@ -91,6 +92,7 @@ class Guild {
   ChannelManager _channels;
   EmojiManager _emojis;
   ModerationRuleManager _moderationRules;
+  GuildInvitesManager _invites;
   GuildWebhookManager _webhooks;
   GuildScheduledEventService _scheduledEvents;
   CommandService _commands;
@@ -138,6 +140,7 @@ class Guild {
     this._emojis,
     this._features,
     this._moderationRules,
+    this._invites,
     this._webhooks,
     this._scheduledEvents,
     this._commands,
@@ -185,6 +188,7 @@ class Guild {
   ChannelManager get channels => _channels;
   EmojiManager get emojis => _emojis;
   ModerationRuleManager get moderationRules => _moderationRules;
+  GuildInvitesManager get invites => _invites;
   GuildWebhookManager get webhooks => _webhooks;
   GuildScheduledEventService get scheduledEvents => _scheduledEvents;
   Map<Snowflake, GuildMember> get bots => _members.cache.where((element) => element.isBot);
@@ -671,6 +675,7 @@ class Guild {
       emojiManager,
       features,
       moderationRuleManager,
+      GuildInvitesManager(payload['id']),
       GuildWebhookManager.fromManager(webhookManager: webhookManager),
       guildScheduledEventService,
       CommandService(payload['id']),
